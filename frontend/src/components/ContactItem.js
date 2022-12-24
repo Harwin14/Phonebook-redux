@@ -1,5 +1,5 @@
 
-import React, { Component } from "react"
+import React, { Component }  from 'react';
 //ContactItem berupa tag yg memiliki atribut no, name, phone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIdBadge, faPhoneSquare } from '@fortawesome/free-solid-svg-icons'
@@ -54,6 +54,7 @@ export default class ContactItem extends Component {
                 </div>
             )
         } else {
+            console.log("sent",this.props.contact.sent)
             return (
                 <div>
                     <div className="card daun m-3 mt-5 transition ease-in-out  shadow py-3 cardlist">
@@ -69,8 +70,8 @@ export default class ContactItem extends Component {
                                     <button onClick={() => this.setState({ isEdit: true })} className='button-29'>
                                         Edit
                                     </button>
-                                    <button onClick={this.props.contact.sent ? this.props.remove : this.props.resend} className='button-49'>
-                                        {this.props.contact.sent ? 'Delete' : 'Resend'}
+                                    <button onClick={this.props.sent ? this.props.remove : this.props.resend} className={this.props.sent ? 'button-49': 'btn btn-w'}>
+                                        {this.props.sent ? 'Delete' : 'Resend'}
                                     </button>
                                 </div>
 
