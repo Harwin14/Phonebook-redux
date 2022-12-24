@@ -28,7 +28,7 @@ const contacts = (state = [], action) => {
                     }
                 }
                 return item 
-            })    
+            })  
 
         case 'ADD_CONTACT_FAILURE':
             return state.map(item => {
