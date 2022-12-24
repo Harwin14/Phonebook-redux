@@ -26,7 +26,7 @@ const contacts = (state = [], action) => {
                         phone: action.user.phone,
                         sent: true
                     }
-                }
+                } 
                 return item 
             })  
 
