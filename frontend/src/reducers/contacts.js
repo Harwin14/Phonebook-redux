@@ -27,7 +27,7 @@ const contacts = (state = [], action) => {
                         sent: true
                     }
                 }
-                return item
+                return item 
             })   
 
         case 'ADD_CONTACT_FAILURE':
