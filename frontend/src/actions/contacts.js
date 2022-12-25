@@ -35,7 +35,7 @@ export const searchContact = (name, phone) => dispatch => request.get('users',{n
 }).catch((err) => {
   dispatch(loadContactFailure())
 }) 
-
+ 
 export const addContactSuccess = (id, contact) => ({
   type: 'ADD_CONTACT_SUCCESS',
   id,
