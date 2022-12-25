@@ -3,7 +3,7 @@ import { addContact } from "../actions/contacts";
 import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBan, faPlus, faCircleCheck, faAddressCard } from '@fortawesome/free-solid-svg-icons'
+import { faBan, faPlus, faCircleCheck, faAddressCard, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 class ContactForm extends Component {
 
@@ -15,9 +15,6 @@ class ContactForm extends Component {
             phone: ''
         }
     }
-
-
-
     //untuk handle inputan dari form
     handleInputChange = (event) => {
         const target = event.target;
@@ -27,7 +24,6 @@ class ContactForm extends Component {
             [name]: value
         });
     }
-
     //this.props isinya data add
     handleSubmit = (event) => {
         event.preventDefault()
@@ -40,7 +36,6 @@ class ContactForm extends Component {
         this.props.onSearch(this.state.name, this.state.phone);
         this.setState({ name: '', phone: '' })
     }
-
     render() {
         if (this.state.isAdd) {
             return (
@@ -70,16 +65,15 @@ class ContactForm extends Component {
                                     </div>
                                 </div>
 
-                                <div className="my-2 ms-2">
-                                    <button type="submit" className="btn btn-s"><FontAwesomeIcon icon={faCircleCheck} /> Save</button>
-                                    <button className="btn btn-w mx-2" onClick={() => this.setState({ isAdd: false })}><FontAwesomeIcon icon={faBan} /> Cancel</button>
+                                <div className="d-flex justify-content-around align-items-stretch ">
+                                    <button type="submit" className="button-87 mx-2"><FontAwesomeIcon icon={faCircleCheck} /> Save</button>
+                                    <button className="button-85" onClick={() => this.setState({ isAdd: false })}><FontAwesomeIcon icon={faBan} /> Cancel</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div className="card mt-3">
-                        <div className="card-header font">
-                            Search Form
+                        <div className="card-header font"><FontAwesomeIcon icon={faMagnifyingGlass} /> Search Form
                         </div>
                         <form className="g-3 my-2 px-4" onSubmit={this.handleSubmitSearch} >
                             <div className="d-flex">
@@ -109,7 +103,7 @@ class ContactForm extends Component {
             return (
                 <div>
                     <div className="col-md-2">
-                        <button className="btn btn-p " onClick={() => this.setState({ isAdd: true })}><FontAwesomeIcon icon={faPlus} /> Add</button>
+                        <button className="button-55 " onClick={() => this.setState({ isAdd: true })}><FontAwesomeIcon icon={faPlus} /> Add</button>
                     </div>
                     <div className="card mt-3">
                         <div className="card-header font">

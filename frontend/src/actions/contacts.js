@@ -21,10 +21,25 @@ export const loadContact = () => dispatch => request.get('users').then((response
   dispatch(loadContactFailure())
 })
 
-export const addContactSuccess = (id, user) => ({
+// searchContact = async (name, phone) => {
+//   try {
+//       this.params = { ...this.params, name, phone, page: 1 }
+//       this.loadContact()
+//   } catch (error) {
+//       console.log(error)
+//   }
+// }
+
+export const searchContact = (name, phone) => dispatch => request.get('users',{name, phone}).then((response) => {
+  dispatch(loadContactSuccess(response.data.data))
+}).catch((err) => {
+  dispatch(loadContactFailure())
+})
+
+export const addContactSuccess = (id, contact) => ({
   type: 'ADD_CONTACT_SUCCESS',
   id,
-  user
+  contact
 })
 
 export const addContactFailure = (id) => ({
@@ -45,16 +60,16 @@ export const addContact = (name, phone) => dispatch => {
   return request.post('users', { name, phone }).then((response) => {
     dispatch(addContactSuccess(id, response.data.data))
   }).catch((err) => {
-    dispatch(addContactFailure())
+    dispatch(addContactFailure(id))
   })
 }
 
-export const removeContactSuccess = (id) => ({
+const removeContactSuccess = (id) => ({
   type: 'REMOVE_CONTACT_SUCCESS',
   id
 })
 
-export const removeContactFailure = () => ({
+const removeContactFailure = () => ({
   type: 'REMOVE_CONTACT_FAILURE'
 })
 
@@ -66,4 +81,47 @@ export const removeContact = (id) => dispatch => {
   }) 
 }
 
+const resendContactSuccess = (id, contact) => ({
+  type: 'RESEND_CONTACT_SUCCESS',
+  id,
+  contact
+})
+
+const resendContactFailure = () => ({
+  type: 'RESEND_CONTACT_FAILURE'
+})
+
+export const resendContact = (id, name, phone ) => dispatch => {
+  return request.post('users',{name,phone}).then((response) => {
+    dispatch(resendContactSuccess(id, response.data.data))
+  }).catch((err) => {
+    dispatch(resendContactFailure())
+  }) 
+}
+
+export const updateContactSuccess = (id, contact) => ({
+  type: 'ADD_CONTACT_SUCCESS',
+  id,
+  contact
+})
+
+export const updateContactFailure = () => ({
+  type: 'ADD_CONTACT_FAILURE'
+})
+
+// export const updateContactRedux = (id, name, phone) => ({
+//   type: 'ADD_CONTACT',
+//   id,
+//   name,
+//   phone
+// })
+
+export const updateContact = (id, name, phone) => dispatch => {
+  // dispatch(updateContactRedux(id, name, phone))
+  return request.put(`users/${id}`, { name, phone }).then((response) => {
+    dispatch(updateContactSuccess(id, response.data.data))
+  }).catch((err) => {
+    dispatch(updateContactFailure(id))
+  })
+}
 

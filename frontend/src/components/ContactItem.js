@@ -1,5 +1,5 @@
 
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
 //ContactItem berupa tag yg memiliki atribut no, name, phone
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faIdBadge, faPhoneSquare } from '@fortawesome/free-solid-svg-icons'
@@ -31,7 +31,7 @@ export default class ContactItem extends Component {
     render() {
         if (this.state.isEdit) {
             return (
-                <div className="card daun m-3 mt-5 transition ease-in-out  shadow py-3 cardlist">
+                <div className="w-5 my-3 mx-3 shadow py-3 px-4 cardlist">
                     <div className='card-body h-500 w-500' >
                         <div className="card">
                             <input type='text' name='name' value={this.state.name} onChange={this.handleInputChange}
@@ -54,33 +54,29 @@ export default class ContactItem extends Component {
                 </div>
             )
         } else {
-            console.log("sent",this.props.contact.sent)
+            // console.log("sent", this.props.contact.sent)
             return (
-                <div>
-                    <div className="card daun m-3 mt-5 transition ease-in-out  shadow py-3 cardlist">
-                        <div className='card-body h-500 w-500' >
-                            <div className="">
-                                <div className=''><FontAwesomeIcon icon={faIdBadge} /> <span> Name : {this.state.name}</span>
-                                </div>
 
-                                <div className=''>
-                                    <FontAwesomeIcon icon={faPhoneSquare} /><span> Phone : {this.state.phone}</span>
-                                </div>
-                                <div className='d-flex justify-content-around align-items-stretch py-2'>
-                                    <button onClick={() => this.setState({ isEdit: true })} className='button-29'>
-                                        Edit
-                                    </button>
-                                    <button onClick={this.props.sent ? this.props.remove : this.props.resend} className={this.props.sent ? 'button-49': 'btn btn-w'}>
-                                        {this.props.sent ? 'Delete' : 'Resend'}
-                                    </button>
-                                </div>
-
+                <div className="w-5 my-3 mx-3 shadow py-3 px-4 cardlist" >
+                    <div className='' >
+                        <div className="">
+                            <div className=''><FontAwesomeIcon icon={faIdBadge} /> <span className='font'> Name : </span><span>{this.state.name}</span>
+                            </div>
+                            <div className=''>
+                                <FontAwesomeIcon icon={faPhoneSquare} /><span className='font'> Phone : </span><span>{this.state.phone}</span>
+                            </div>
+                            <div className='d-flex justify-content-between py-2'>
+                                <button onClick={() => this.setState({ isEdit: true })} className='button-29'>
+                                    Edit
+                                </button>
+                                <button onClick={this.props.sent ? this.props.remove : this.props.resend} className={this.props.sent ? 'button-49' : 'btn btn-w'}>
+                                    {this.props.sent ? 'Delete' : 'Resend'}
+                                </button>
                             </div>
 
                         </div>
 
                     </div>
-
                 </div>
 
             )

@@ -21,33 +21,61 @@ const contacts = (state = [], action) => {
             return state.map(item => {
                 if (item.id === action.id) {
                     return {
-                        id: action.user.id,
-                        name: action.user.name,
-                        phone: action.user.phone,
+                        id: action.contact.id,
+                        name: action.contact.name,
+                        phone: action.contact.phone,
                         sent: true
                     }
-                } 
-                return item 
-            })  
+                }
+                return item
+            })
 
         case 'ADD_CONTACT_FAILURE':
             return state.map(item => {
-                if (item.id === action.id)
-                 {
+                if (item.id === action.id) {
                     item.sent = false
                 }
                 return item
             })
 
-            // this.setState((state) => ({
-            //             contacts: state.contacts.map(item => {
-            //                 if (item.id === id) {
-            //                     return { ...item, sent: false }
-        
-            //                 }
-            //                 return item
-            //             })
+        case 'RESEND_CONTACT_SUCCESS':
+            return state.map(item => {
+                if (item.id === action.id) {
+                    return {
+                        id: action.contact.id,
+                        name: action.contact.name,
+                        phone: action.contact.phone,
+                        sent: true
+                    }
+                }
+                return item
+            })
 
+        case 'UPDATE_CONTACT_SUCCESS':
+            return state.map(item => {
+                if (item.id === action.id) {
+                    return {
+                        id: action.contact.id,
+                        name: action.contact.name,
+                        phone: action.contact.phone,
+                        sent: true
+                    }
+                }
+                return item
+            })
+
+            case 'SEARCH_CONTACT_SUCCESS':
+                return state.map(item => {
+                    if (item.id === action.id) {
+                        return {
+                            id: action.contact.id,
+                            name: action.contact.name,
+                            phone: action.contact.phone,
+                            sent: true
+                        }
+                    }
+                    return item
+                })
         case 'REMOVE_CONTACT_SUCCESS':
             return state.filter(item => item.id !== action.id)
         case 'REMOVE_CONTACT_FAILURE':

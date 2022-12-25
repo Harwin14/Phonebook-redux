@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import { loadContact, removeContact } from "../actions/contacts";
+import { loadContact, removeContact, resendContact, updateContact, searchContact } from "../actions/contacts";
 import ContactItem from "../components/ContactItem"
 import { connect } from "react-redux";
 
@@ -9,11 +9,12 @@ class ContactList extends Component {
         this.props.load()
     }
     render() {
-        console.log("users",this.props.contacts)
+     console.log("users",this.props.contacts)
         return (
             <div
-            // onScroll={scrolling} style={{ overflowY: "scroll", height: 500 }} 
-            className=" card-header mt-5 mx-auto d-flex justify-content-between d-flex flex-wrap">
+            onScroll={scrolling} 
+            style={{ overflowY: "scroll", height: 380 }} 
+            className="card-b shadow  mt-5 mx-auto d-flex justify-content-evenly d-flex flex-wrap" >
                 {
                     this.props.contacts.map((user, index) => (
                         <ContactItem
@@ -22,8 +23,10 @@ class ContactList extends Component {
                             contact={user}
                             sent={user.sent}
                             remove={() => this.props.remove(user.id)}
-                            // update={(name, phone) => this.props.update(user.id, name, phone)}
-                            // resend={() => this.props.resend(user.id, user.name, user.phone)}
+                            resend={() => this.props.resend(user.id, user.name, user.phone)}
+                            update={(name, phone) => this.props.update(user.id, name, phone)}
+                            search={(name, phone) => this.props.search(user.id, name, phone)}
+
                         />
                     ))
                 }
@@ -32,22 +35,24 @@ class ContactList extends Component {
     }
 }
 
-// const scrolling = (event) => {
-//     var element = event.target;
-//     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-//         this.props.loadMore()
-//     }
-// }
+const scrolling = (event) => {
+    console.log("ini scroll")
+    var element = event.target;
+    if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+        //  
+    }
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     load: () => dispatch(loadContact()),
-    remove: (id) => dispatch(removeContact(id))
+    remove: (id) => dispatch(removeContact(id)),
+    resend: (id, name, phone) => dispatch(resendContact(id, name, phone)),
+    update: (id, name, phone) => dispatch(updateContact(id, name, phone)),
+    search: (id, name, phone) => dispatch(searchContact(id, name, phone)),
 })
 const mapStateToProps = (state, ownProps) => ({
     contacts: state.contacts
 })
-
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps
