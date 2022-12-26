@@ -8,7 +8,6 @@ import { faContactBook } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function ContactBox() {
-
     return (
         <div>
             <div className="container shadow">
@@ -22,7 +21,7 @@ export default function ContactBox() {
                 </div>
             </div>
             <div>
-                <div className="container  px-6" >
+                <div className="container px-6" >
                     <ContactList />
                 </div>
             </div>

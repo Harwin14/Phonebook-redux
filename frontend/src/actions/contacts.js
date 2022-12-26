@@ -3,17 +3,40 @@ import axios from 'axios';
 const request = axios.create({
   baseURL: 'http://localhost:3001/',
   timeout: 1000,
-  headers: { 'X-Custom-Header': 'foobar' }
+  headers: { 'Authorization': 'token' }
 });
 
 const loadContactSuccess = (contacts) => ({
   type: 'LOAD_CONTACT_SUCCESS',
-  contacts
+  contacts,
+  pages : data.data.pages
 })
 
 const loadContactFailure = () => ({
   type: 'LOAD_CONTACT_FAILURE'
 })
+
+// export const loadContactas = () => {
+//   return async dispatch => {
+//     try {
+//       const { data } = await url.get('users')
+
+//       return dispatch(loadContactSuccess(data.data.users))
+//     } catch (error) {
+//       return dispatch(loadContactFailure())
+//     }
+//   }
+// }
+
+// export const loadContacts = () =>  async dispatch => {
+//     try {
+//       const { response } = await request.get('users')
+//       dispatch(loadContactSuccess(response.data.data))
+//     } catch (error) {
+//       dispatch(loadContactFailure())
+//     }
+
+// }
 
 export const loadContact = () => dispatch => request.get('users').then((response) => {
   dispatch(loadContactSuccess(response.data.data))
@@ -21,21 +44,31 @@ export const loadContact = () => dispatch => request.get('users').then((response
   dispatch(loadContactFailure())
 })
 
-// searchContact = async (name, phone) => {
+// export const loadContact = () => async dispatch => {
 //   try {
-//       this.params = { ...this.params, name, phone, page: 1 }
-//       this.loadContact()
+//     const { data } = await request.get('users', { params: this.params })
+//     dispatch(loadContactSuccess(data.data.users))
 //   } catch (error) {
-//       console.log(error)
+//     dispatch(loadContactFailure())
 //   }
 // }
 
-export const searchContact = (name, phone) => dispatch => request.get('users',{name, phone}).then((response) => {
+// loadMore = (page) => {
+//   if (this.params.page <= this.params.pages) {
+//     this.params = ({
+//       ...this.params,
+//       page: this.params.page + 1
+//     })
+//     this.loadContact()
+//   }
+// }
+
+export const searchContact = (name, phone) => dispatch => request.get('users', { ...this.params, name, phone, page: 1 }).then((response) => {
   dispatch(loadContactSuccess(response.data.data))
 }).catch((err) => {
   dispatch(loadContactFailure())
-}) 
-   
+})
+
 export const addContactSuccess = (id, contact) => ({
   type: 'ADD_CONTACT_SUCCESS',
   id,
@@ -52,6 +85,7 @@ export const addContactRedux = (id, name, phone) => ({
   id,
   name,
   phone
+  // addContact ngelempar 4 data (type,id,name,phone) dilempar ke reducers/contacts
 })
 
 export const addContact = (name, phone) => dispatch => {
@@ -78,7 +112,7 @@ export const removeContact = (id) => dispatch => {
     dispatch(removeContactSuccess(id))
   }).catch((err) => {
     dispatch(removeContactFailure())
-  }) 
+  })
 }
 
 const resendContactSuccess = (id, contact) => ({
@@ -91,12 +125,12 @@ const resendContactFailure = () => ({
   type: 'RESEND_CONTACT_FAILURE'
 })
 
-export const resendContact = (id, name, phone ) => dispatch => {
-  return request.post('users',{name,phone}).then((response) => {
+export const resendContact = (id, name, phone) => dispatch => {
+  return request.post('users', { name, phone }).then((response) => {
     dispatch(resendContactSuccess(id, response.data.data))
   }).catch((err) => {
     dispatch(resendContactFailure())
-  }) 
+  })
 }
 
 export const updateContactSuccess = (id, contact) => ({

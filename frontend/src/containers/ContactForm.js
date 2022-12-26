@@ -24,10 +24,9 @@ class ContactForm extends Component {
             [name]: value
         });
     }
-    //this.props isinya data add
     handleSubmit = (event) => {
         event.preventDefault()
-        //this.props.add dari contactbox
+        //handle submit jalan , eksekusi props.add datang dari addContact bawah
         this.props.add(this.state.name, this.state.phone)
         this.setState({ name: '', phone: '' })
     }
@@ -116,7 +115,7 @@ class ContactForm extends Component {
                                         <label htmlFor="name">Name</label>
                                     </div>
                                     <div className="ms-1">
-                                        <input type="string" className="form-control" name="name" onChange={this.handleInputChange} placeholder="name"></input>
+                                        <input type="text" className="form-control" name="name" onChange={this.handleInputChange} placeholder="name"></input>
                                     </div>
                                 </div>
                                 <div className="d-flex align-items-center ms-2">
@@ -124,7 +123,7 @@ class ContactForm extends Component {
                                         <label htmlFor="phone">Phone</label>
                                     </div>
                                     <div className="ms-1">
-                                        <input type="string" className="form-control" name="phone" onChange={this.handleInputChange} placeholder="name"></input>
+                                        <input type="text" className="form-control" name="phone" onChange={this.handleInputChange} placeholder="name"></input>
                                     </div>
                                 </div>
                                 <button type="submit" id="submit"></button>
@@ -137,8 +136,11 @@ class ContactForm extends Component {
     }
 }
 
+// dari action/ addContact
+
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+    //add contact dari (import addContact from action/contact)
     add: (name, phone) => dispatch(addContact(name, phone))
 })
 

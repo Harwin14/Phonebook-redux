@@ -1,7 +1,10 @@
+//hasil lemparan data dari actions/contacts masuk ke reducer diterima sebagai action( action.type, action.name dsb)
 const contacts = (state = [], action) => {
     switch (action.type) {
         case 'LOAD_CONTACT_SUCCESS':
-            return action.contacts.map(item => ({
+            return action.contacts.map(item => 
+                console.log(item) 
+                ({
                 id: item.id,
                 name: item.name,
                 phone: item.phone,

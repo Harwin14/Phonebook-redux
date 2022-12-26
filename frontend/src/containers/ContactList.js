@@ -16,6 +16,7 @@ class ContactList extends Component {
             style={{ overflowY: "scroll", height: 380 }} 
             className="card-b shadow  mt-5 mx-auto d-flex justify-content-evenly d-flex flex-wrap" >
                 {
+                    //props.contact dapat dari mapStateToProps
                     this.props.contacts.map((user, index) => (
                         <ContactItem
                             key={user.id}
@@ -50,7 +51,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     update: (id, name, phone) => dispatch(updateContact(id, name, phone)),
     search: (id, name, phone) => dispatch(searchContact(id, name, phone)),
 })
+
+
 const mapStateToProps = (state, ownProps) => ({
+    //state.contacts nya dapet dari reducers (return return nya)
     contacts: state.contacts
 })
 export default connect(
