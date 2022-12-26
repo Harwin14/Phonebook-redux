@@ -157,5 +157,5 @@ export const updateContact = (id, name, phone) => dispatch => {
   }).catch((err) => {
     dispatch(updateContactFailure(id))
   })
-}
+} 
 
