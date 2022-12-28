@@ -255,7 +255,7 @@ class ContactForm extends Component {
                 </div>
             )
         } else {
-            return (
+            return ( 
                 <div> 
                     <div className="col-md-2">
                         <button className="button-55 " onClick={() => this.setState({ isAdd: true })}><FontAwesomeIcon icon={faPlus} /> Add</button>
