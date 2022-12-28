@@ -31,15 +31,15 @@ export default class ContactItem extends Component {
     render() {
         if (this.state.isEdit) {
             return (
-                <div className="w-5 my-3 mx-3 shadow py-3 px-4 cardlist">
-                    <div className='card-body h-500 w-500' >
-                        <div className="card">
+                <div className="my-3 mx-3 shadow py-3 px-4 cardlist">
+                    <div className='' >
+                        <div className="">
                             <input type='text' name='name' value={this.state.name} onChange={this.handleInputChange}
-                                className='px-2 py-1 border border-blue-400/75 rounded-lg w-full form-control cardlist' required />
+                                className='p-2 m-2 form-control ' required />
                         </div>
                         <div className=''>
-                            <input type='tel' pattern='[08][0-9]{11}' name='phone' id='phone' value={this.state.phone} onChange={this.handleInputChange}
-                                className='px-2 py-1 border border-blue-400/75 rounded-lg w-full form-control cardlist' required />
+                            <input type='tel'  name='phone' id='phone' value={this.state.phone} onChange={this.handleInputChange}
+                                className='p-2 m-2  form-control ' required />
                         </div>
                         <div className='d-flex justify-content-around align-items-stretch py-2'>
                             <button onClick={this.handleUpdate}
@@ -57,7 +57,7 @@ export default class ContactItem extends Component {
             // console.log("sent", this.props.contact.sent)
             return (
 
-                <div className="w-5 my-3 mx-3 shadow py-3 px-4 cardlist" >
+                <div className="my-3 mx-3 shadow py-3 px-4 cardlist" >
                     <div className='' >
                         <div className="">
                             <div className=''><FontAwesomeIcon icon={faIdBadge} /> <span className='font'> Name : </span><span>{this.state.name}</span>
@@ -65,7 +65,7 @@ export default class ContactItem extends Component {
                             <div className=''>
                                 <FontAwesomeIcon icon={faPhoneSquare} /><span className='font'> Phone : </span><span>{this.state.phone}</span>
                             </div>
-                            <div className='d-flex justify-content-between py-2'>
+                            <div className='d-flex justify-content-around align-items-stretch py-2'>
                                 <button onClick={() => this.setState({ isEdit: true })} className='button-29'>
                                     Edit
                                 </button>

@@ -1,20 +1,40 @@
-import React, { Component }  from 'react';
-import { loadContact, removeContact, resendContact, updateContact, searchContact } from "../actions/contacts";
+import React, { Component } from 'react';
+import { loadContact, removeContact, resendContact, updateContact } from "../actions/contacts";
 import ContactItem from "../components/ContactItem"
 import { connect } from "react-redux";
+// import { setStatus } from 'status';
 
 class ContactList extends Component {
 
     componentDidMount() {
         this.props.load()
     }
+    // scrolling = (event) => {
+    //     // console.log("ini scroll")
+    //     var element = event.target;
+    //     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+    //         this.props.pagination()
+    //     }
+    // }
+    
+    // loadPagination = () => {
+    //     if (this.props.status.page <= this.props.status.totalPages) {
+    //         this.props.setStatus({ page: this.props.status.page + 1 })
+    //     }
+    //     this.props.load()
+    // }
+    // searchContact = (query) => {
+    //     this.props.setStatus(query)
+    //     this.props.load()
+    // }
+
     render() {
-     console.log("users",this.props.contacts)
+        //  console.log("users",this.props.contacts)
         return (
             <div
-            onScroll={scrolling} 
-            style={{ overflowY: "scroll", height: 380 }} 
-            className="card-b shadow  mt-5 mx-auto d-flex justify-content-evenly d-flex flex-wrap" >
+                // onScroll={scrolling}
+                style={{ overflowY: "scroll", height: 380 }}
+                className="card-b shadow  mt-5 mx-auto d-flex justify-content-evenly d-flex flex-wrap" >
                 {
                     //props.contact dapat dari mapStateToProps
                     this.props.contacts.map((user, index) => (
@@ -36,20 +56,13 @@ class ContactList extends Component {
     }
 }
 
-const scrolling = (event) => {
-    console.log("ini scroll")
-    var element = event.target;
-    if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-        //  
-    }
-}
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     load: () => dispatch(loadContact()),
+    // setStatus: (params) => dispatch(setStatus(params)),
     remove: (id) => dispatch(removeContact(id)),
     resend: (id, name, phone) => dispatch(resendContact(id, name, phone)),
-    update: (id, name, phone) => dispatch(updateContact(id, name, phone)),
-    search: (id, name, phone) => dispatch(searchContact(id, name, phone)),
+    update: (id, name, phone) => dispatch(updateContact(id, name, phone))
 })
 
 

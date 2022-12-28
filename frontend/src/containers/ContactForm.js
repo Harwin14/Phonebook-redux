@@ -1,3 +1,4 @@
+//container adalah component yang menggunakan redux
 import React, { Component }  from 'react';
 import { addContact } from "../actions/contacts";
 import { connect } from 'react-redux';
@@ -139,7 +140,7 @@ class ContactForm extends Component {
 // dari action/ addContact
 
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
     //add contact dari (import addContact from action/contact)
     add: (name, phone) => dispatch(addContact(name, phone))
 })

@@ -2,9 +2,7 @@
 const contacts = (state = [], action) => {
     switch (action.type) {
         case 'LOAD_CONTACT_SUCCESS':
-            return action.contacts.map(item => 
-                console.log(item) 
-                ({
+            return action.contact.map(item => ({
                 id: item.id,
                 name: item.name,
                 phone: item.phone,
@@ -21,7 +19,7 @@ const contacts = (state = [], action) => {
                 }
             ]
         case 'ADD_CONTACT_SUCCESS':
-            return state.map(item => {
+            return action.contact.map(item => {
                 if (item.id === action.id) {
                     return {
                         id: action.contact.id,

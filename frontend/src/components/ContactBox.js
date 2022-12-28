@@ -16,13 +16,17 @@ export default function ContactBox() {
                         <h1 className="text-center font"><FontAwesomeIcon icon={faContactBook} /> Phone Book Apps</h1>
                     </div>
                     <div className="card-body">
-                        <ContactForm />
+                        <ContactForm 
+                        // onSearch={this.searchContact}
+                         />
                     </div>
                 </div>
             </div>
             <div>
                 <div className="container px-6" >
-                    <ContactList />
+                    <ContactList 
+                    // pagination={this.loadPagination}
+                    />
                 </div>
             </div>
         </div>
