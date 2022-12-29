@@ -50,7 +50,7 @@ export const loadMore = () => (dispatch, getState) => {
       }
       dispatch(loadMoreSuccess({ value: data.data.result, params }))
     })
-  }
+  } 
 }; 
 
 export const addContactSuccess = (id, data) => ({
