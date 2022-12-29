@@ -6,10 +6,9 @@ const request = axios.create({
   headers: { 'Authorization': 'token' }
 });
 
-const loadContactSuccess = (data, pageOne, page, totalPages) => ({
+const loadContactSuccess = (data, page, totalPages) => ({
   type: 'LOAD_CONTACT_SUCCESS',
   data,
-  pageOne,
   page,
   totalPages
 })
@@ -20,19 +19,15 @@ const loadContactFailure = () => ({
 
 export const loadContact = () => (dispatch, getState) => request.get('users', { params: getState().contacts.params })
   .then(({ data }) => {
-    // console.log(data)
-    // console.log(data.data.users,'data.users')
-    // console.log(data.data.page,'data.page')
-    // console.log(getState(),'getState')
-
-
-    dispatch(loadContactSuccess(data.data.users, data.data.page === 1 ? true : false, data.data.page, data.data.totalPages))
+    // console.log(getState())
+    dispatch(loadContactSuccess(data.data.result, data.data.page, data.data.totalPages))
   }).catch((err) => {
     dispatch(loadContactFailure())
   })
 
-const loadMoreSuccess = () => ({
-  type: 'LOAD_MORE_SUCCESS'
+const loadMoreSuccess = (data) => ({
+  type: 'LOAD_MORE_SUCCESS',
+  data
 })
 
 const loadMoreFailure = () => ({
@@ -40,16 +35,21 @@ const loadMoreFailure = () => ({
 })
 
 
-export const loadMore = () => async (dispatch, getState) => {
-  // console.log(`getState`, getState());
-  // console.log(`contact`, getState().contacts.params);
-
-  const state = getState().contacts
-  if (state.params.page < state.params.totalPages) {
-    await dispatch(loadMoreSuccess());
-    dispatch(loadContact());
-  } else {
-    dispatch(loadMoreFailure());
+export const loadMore = () => (dispatch, getState) => {
+  let state = getState()
+  if (state.contacts.params.page < state.contacts.params.totalPages) {
+    let params = {
+      ...state.contacts.params,
+      page: state.contacts.params.page + 1
+    }
+    request.get('users', { params }).then(({ data }) => {
+      console.log({data})
+      params = {
+        ...params,
+        totalPages: data.data.totalPages
+      }
+      dispatch(loadMoreSuccess({ value: data.data.result, params }))
+    })
   }
 };
 
@@ -161,9 +161,9 @@ export const resendContact = (id, name, phone) => {
   }
 }
 
-const searchContactSuccess = (query = {}) => ({
+const searchContactSuccess = (data) => ({
   type: 'SEARCH_CONTACT_SUCCESS',
-  query
+  data
 })
 
 const searchContactFailure = () => ({
@@ -177,17 +177,39 @@ const searchContactFailure = () => ({
 //     dispatch(searchContactFailure(err))
 //   })
 
-export const searchContact = (query = {}) => {
-  // console.log(query, 'ini search')
-  return async dispatch => {
-    try {
-      await dispatch(searchContactSuccess(query))
-      dispatch(loadContact())
-    } catch (err) {
-      dispatch(searchContactFailure(err))
-    }
+export const searchContacts = (query) => (dispatch, getState) => {
+  let state = getState()
+  let params = {
+    ...state.contacts.params,
+    ...query,
+    page: 1
   }
+  request.get('users', { params }).then(({ data }) => {
+    params = {
+      ...params,
+      totalPages: data.data.totalPages
+    }
+    dispatch(searchContactSuccess({ value: data.data.result, params }))
+  })
 }
+export const searchContact= (query) => (dispatch, getState) => {
+  let state = getState()
+  let params = {
+      ...state.contacts.params,
+      ...query,
+      page: 1
+  }
+  request.get('users', { params }).then(({ data }) => {
+      params = {
+          ...params,
+          totalPage: data.data.totalPage
+      }
+      dispatch(searchContactSuccess({ value: data.data.result, params }))
+  })
+}
+
+
+
 
 
 

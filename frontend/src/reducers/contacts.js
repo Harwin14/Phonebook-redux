@@ -8,37 +8,37 @@ const contacts = (state = {
 }, action) => {
     switch (action.type) {
         case 'LOAD_CONTACT_SUCCESS':
+            // console.log(state.params, "state.params load data")
+            // console.log(action, "action.data load data")
+
             return {
-                data: [...(action.pageOne ? [] : state.data), ...action.data.map(item => {
+                data: action.data.map(item => {
                     item.sent = true
                     return item
-                })],
+                }),
                 params: {
                     page: action.page,
                     totalPages: action.totalPages
                 }
             }
-            case 'LOAD_MORE_SUCCESS':
-                // console.log(state,'ini state')
-
-                // console.log(state.params,'ini state params')
+        case 'LOAD_MORE_SUCCESS':
+           // console.log(state, "state load more")
             return {
-                ...state,
-                params: {
-                    ...state.params,
-                    page: state.params.page + 1
-                }
+                data: [...state.data, ...action.data.value.map(item => {
+                    item.sent = true
+                    return item
+                })],
+                params: action.data.params
             }
-            
+
         case 'SEARCH_CONTACT_SUCCESS':
-            // console.log(action.query,'reducer action.query')
+             console.log(action.data,'reducer search')
             return {
-                ...state,
-                params: {
-                    ...state.params,
-                    ...action.query,
-                    page: 1
-                }
+                data: action.data.value.map(item => {
+                    item.sent = true
+                    return item
+                }),
+                params: action.data.params
             }
         case 'ADD_CONTACT':
             return {
@@ -142,8 +142,8 @@ const contacts = (state = {
                     return item
                 })]
             }
-            
-            case 'UPDATE_CONTACT_SUCCESS':
+
+        case 'UPDATE_CONTACT_SUCCESS':
             return {
                 ...state,
                 data: [...state.data.map(item => {
@@ -158,7 +158,7 @@ const contacts = (state = {
                     return item
                 })]
             }
-      
+
         // case 'REMOVE_CONTACT_SUCCESS':
         //     return state.filter(item => item.id !== action.id)
         case 'REMOVE_CONTACT_SUCCESS':
