@@ -10,12 +10,14 @@ const { Op } = require('sequelize')
 //     const { name, phone } = req.query
 
 //     const page = parseInt(req.query.page) || 1
-//     const limit = 3
+//     const limit = 6
 //     const offset = (page - 1) * limit
 
 
 //     const total = await models.User.count()
 //     const totalPages = Math.ceil(total / limit)
+//     console.log(totalPages,'totalPages');
+    
 //     if (name && phone) {
 //       const getUser = await models.User.findAll({
 //         where: {
@@ -33,7 +35,12 @@ const { Op } = require('sequelize')
 //           ]
 //         }
 //       })
-//       res.json(new Response({ result: getUser, page: page, totalPages: totalPages, offset }))
+//       res.json(new Response({
+//          result: getUser,
+//           page: page, 
+//           totalPages: totalPages, 
+//           offset 
+//         }))
 //     } else if (name) {
 //       const getUser = await models.User.findAll({
 //         where: {
@@ -42,7 +49,12 @@ const { Op } = require('sequelize')
 //           }
 //         }
 //       })
-//       res.json(new Response({ result: getUser, page: page, totalPages: totalPages, offset }))
+//       res.json(new Response({ 
+//         result: getUser, 
+//         page: page, 
+//         totalPages: totalPages, 
+//         offset 
+//       }))
 //     } else if (phone) {
 //       const getUser = await models.User.findAll({
 //         where: {
@@ -51,7 +63,13 @@ const { Op } = require('sequelize')
 //           }
 //         }
 //       })
-//       res.json(new Response({ result: getUser, page: page, totalPages: totalPages, offset }))
+//       res.json(new Response({
+//          result: getUser, 
+//          page: page, 
+//          totalPages: 
+//          totalPages, 
+//          offset 
+//         }))
 //     } else {
 //       const getUser = await models.User.findAll({
 //         order: [
@@ -60,7 +78,12 @@ const { Op } = require('sequelize')
 //         limit: limit,
 //         offset: offset
 //       })
-//       res.json(new Response({ result: getUser, page: page, totalPages: totalPages, offset }))
+//       res.json(new Response({ 
+//         result: getUser, 
+//         page: page, 
+//         totalPages: totalPages, 
+//         offset 
+//       }))
 //     }
 //   } catch (error) {
 //     res.status(500).json(new Response(error, false))
@@ -70,16 +93,17 @@ const { Op } = require('sequelize')
   router.get('/', async (req, res, next) => {
     try {
       const { page, name, phone } = req.query
-      const limit = 6
+      const limit = 8
       const offset = (page - 1) * limit
       const total = await models.User.count()
-      const pages = Math.ceil(total / limit)
-
+      const totalPages = Math.ceil(total / limit)
+     
+    
 
       if (name && phone) {
         const users = await models.User.findAll({
-          // limit,
-          // offset,
+          limit,
+          offset,
           where: {
             [Op.or]: [
               {
@@ -95,20 +119,20 @@ const { Op } = require('sequelize')
             ]
           },
           order: [
-            ['id', 'ASC']
+            ['id', 'asc']
           ]
         })
 
         res.json(new Response({
           users,
-          // page: Number(page),
-          // pages
+          page: Number(page),
+          totalPages
         }))
 
       } else if (name) {
         const users = await models.User.findAll({
-          // limit,
-          // offset,
+          limit,
+          offset,
           where: {
             [Op.and]: [
               {
@@ -119,20 +143,20 @@ const { Op } = require('sequelize')
             ]
           },
           order: [
-            ['id', 'ASC']
+            ['id', 'asc']
           ]
         })
 
 
         res.json(new Response({
           users,
-          // page: Number(page),
-          // pages
+          page: Number(page),
+           totalPages
         }))
       } else if (phone) {
         const users = await models.User.findAll({
-          // limit,
-          // offset,
+          limit,
+          offset,
           where: {
             [Op.and]: [
               {
@@ -143,31 +167,34 @@ const { Op } = require('sequelize')
             ]
           },
           order: [
-            ['id', 'ASC']
+            ['id', 'asc']
           ]
         })  
      
         res.json(new Response({
           users,
-          // page: Number(page),
-          // pages
+          page: Number(page),
+          totalPages
         }))
 
       } else {
         const users = await models.User.findAll({
-          // limit,
-          // offset,
+          limit,
+          offset,
           order: [
-            ['id', 'ASC']
+            ['id', 'asc']
           ]
         })
 
 
         res.json(new Response({
           users,
-          // page: Number(page),
-          // pages
+           page: Number(page),
+           totalPages
         }))
+        // console.log(users,'users');
+        // console.log(page,'page')
+        // console.log(offset,'offset');
       }
     } catch (error) {
       console.log(error)
