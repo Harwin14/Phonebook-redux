@@ -34,11 +34,11 @@ export default class ContactItem extends Component {
                     <div className='card-body h-500 w-500' >
                         <div className="card">
                             <input type='text' name='name' value={this.state.name} onChange={this.handleInputChange}
-                                className='px-2 py-1 border border-blue-400/75 rounded-lg w-full form-control cardlist' required />
+                                className='px-2 py-1 border border-blue-400/75 rounded-lg w-full form-control' required />
                         </div>
                         <div className=''>
                             <input type='tel' pattern='[08][0-9]{11}' name='phone' id='phone' value={this.state.phone} onChange={this.handleInputChange}
-                                className='px-2 py-1 border border-blue-400/75 rounded-lg w-full form-control cardlist' required />
+                                className='px-2 py-1 border border-blue-400/75 rounded-lg w-full form-control' required />
                         </div>
                         <div className='d-flex justify-content-around align-items-stretch py-2'>
                             <button onClick={this.handleUpdate}
@@ -56,7 +56,7 @@ export default class ContactItem extends Component {
             // console.log("sent", this.props.contact.sent)
             return (
 
-                <div className="w-5 my-3 mx-3 shadow py-3 px-4 cardlist" >
+                <div className="w-5 my-3 mx-3 shadow py-3 px-4 cardlist " >
                     <div className='' >
                         <div className="">
                             <div className=''><FontAwesomeIcon icon={faIdBadge} /> <span className='font'> Name : </span><span>{this.state.name}</span>

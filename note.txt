@@ -1,4 +1,9 @@
 export NODE_OPTIONS=--openssl-legacy-provider
 
 unset NODE_OPTIONS
+
+
 kill -9 $(lsof -ti:3000)
+
+
+dispatch itu melakukan request ke API atau ke reducers

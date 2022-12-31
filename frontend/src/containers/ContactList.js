@@ -22,7 +22,7 @@ class ContactList extends Component {
             <div
                 onScroll={this.scrolling}
                 style={{ overflowY: "scroll", height: 350 }}
-                className="card-b shadow  mt-5 mx-auto d-flex justify-content-evenly d-flex flex-wrap " >
+                className="card-b shadow  mt-5 mx-auto d-flex justify-content-evenly flex-wrap" >
                 {
                     //props.contact dapat dari mapStateToProps
                     this.props.contacts.map((user, index) => (
